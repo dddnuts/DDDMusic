@@ -131,6 +131,10 @@ namespace DDD
         public void Stop()
         {
             sections.ForEach(e => e.Stop());
+
+            lastPlayedSectionIndex = -1;
+            lastPlayedBarIndex = -1;
+            lastPlayedBeatIndex = -1;
         }
     }
 }
