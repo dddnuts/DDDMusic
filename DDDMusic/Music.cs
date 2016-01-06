@@ -42,7 +42,10 @@ namespace DDD
             source.playOnAwake = false;
             source.enabled = false;
 
-            Play();
+            if (playOnAwake)
+            {
+                Play();
+            }
         }
 
         void Update()
