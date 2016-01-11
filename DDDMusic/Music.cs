@@ -23,6 +23,8 @@ namespace DDD
 
         private static readonly float TransitionTime = 1.0f;
 
+        public bool IsPlaying { get { return sections.Any(e => e.IsPlaying); } }
+
         void Awake()
         {
             var source = GetComponent<AudioSource>();
