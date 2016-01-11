@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -25,9 +26,27 @@ namespace DDD
 
         public bool IsPlaying { get { return sections.Any(e => e.IsPlaying); } }
 
+        public AudioDataLoadState LoadState { get; private set; }
+
         void Awake()
         {
+            LoadState = AudioDataLoadState.Loading;
+        }
+
+        IEnumerator Start()
+        {
             var source = GetComponent<AudioSource>();
+
+            while (source.clip.loadState == AudioDataLoadState.Loading)
+            {
+                yield return new WaitForSeconds(1.0F);
+            }
+
+            if (source.clip.loadState == AudioDataLoadState.Failed)
+            {
+                LoadState = AudioDataLoadState.Failed;
+                yield break;
+            }
 
             var offsetTime = 0.0f;
             sections = sectionDefinitions.ConvertAll(e =>
@@ -48,6 +67,8 @@ namespace DDD
             {
                 Play();
             }
+
+            LoadState = AudioDataLoadState.Loaded;
         }
 
         void Update()

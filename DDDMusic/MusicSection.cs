@@ -62,6 +62,7 @@ namespace DDD
             sectionSource.clip = sectionClip;
             sectionSource.playOnAwake = false;
             sectionSource.loop = (definition.Transition == MusicSectionDefinition.TransitionType.Loop);
+            sectionSource.volume = wholeSource.volume;
 
             this.transform.SetParent(wholeSource.transform);
             this.sectionDefinition = definition;
