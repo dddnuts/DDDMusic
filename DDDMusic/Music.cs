@@ -64,13 +64,13 @@ namespace DDD
 
             var offsetTime = 0.0f;
             sections = sectionDefinitions.ConvertAll(e =>
-                {
-                    var section = new GameObject(e.Name + "_Section", typeof(MusicSection)).GetComponent<MusicSection>();
-                    section.SetSource(source, offsetTime, e);
+            {
+                var section = new GameObject(e.Name + "_Section", typeof(MusicSection)).GetComponent<MusicSection>();
+                section.SetSource(source, offsetTime, e);
 
-                    offsetTime += e.SecondsInSection;
-                    return section;
-                });
+                offsetTime += e.SecondsInSection;
+                return section;
+            });
 
             var playOnAwake = source.playOnAwake;
 
@@ -93,7 +93,7 @@ namespace DDD
                 return;
             }
 
-            var currentSection = sections[currentSectionIndex];
+            var currentSection = sections [currentSectionIndex];
 
             var currentBarIndex = currentSection.CurrentBar;
             var currentBeatIndex = currentSection.CurrentBeat;
@@ -129,7 +129,7 @@ namespace DDD
                     return;
                 }
 
-                var nextSection = sections[currentSectionIndex + 1];
+                var nextSection = sections [currentSectionIndex + 1];
                 nextSection.PlayDelayed(remainingTime);
             }
         }
@@ -138,11 +138,11 @@ namespace DDD
         {
             if (lastPlayedSectionIndex == -1)
             {
-                sections[0].Play();
+                sections [0].Play();
                 return;
             }
 
-            sections[lastPlayedSectionIndex].Play();
+            sections [lastPlayedSectionIndex].Play();
         }
 
         public void Skip()
@@ -153,14 +153,14 @@ namespace DDD
                 return;
             }
 
-            var currentSection = sections[currentSectionIndex];
+            var currentSection = sections [currentSectionIndex];
 
             if (currentSection.ShouldEnd || currentSectionIndex == sections.Count - 1)
             {
                 return;
             }
 
-            var nextSection = sections[currentSectionIndex + 1];
+            var nextSection = sections [currentSectionIndex + 1];
             nextSection.Play();
             currentSection.Stop();
         }
