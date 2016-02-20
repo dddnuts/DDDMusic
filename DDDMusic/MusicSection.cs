@@ -44,6 +44,10 @@ namespace DDD
             get { return sectionDefinition.Transition == MusicSectionDefinition.TransitionType.End; }
         }
 
+        public float OffsetTime { get; private set; }
+
+        public float Time { get { return OffsetTime + sectionSource.time; } }
+
         void Awake()
         {
             sectionSource = GetComponent<AudioSource>();
@@ -51,6 +55,8 @@ namespace DDD
 
         public void SetSource(AudioSource wholeSource, float offsetTime, MusicSectionDefinition definition)
         {
+            this.OffsetTime = offsetTime;
+
             var samples = Mathf.FloorToInt(wholeSource.clip.frequency * definition.SecondsInSection);
             var offsetSamples = Mathf.FloorToInt(wholeSource.clip.frequency * offsetTime);
 

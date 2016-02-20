@@ -28,6 +28,20 @@ namespace DDD
 
         public AudioDataLoadState LoadState { get; private set; }
 
+        public float Time
+        {
+            get
+            {
+                var playingSection = sections.Find(x => x.IsPlaying);
+                if (playingSection == null)
+                {
+                    return 0.0f;
+                }
+
+                return playingSection.Time;
+            }
+        }
+
         void Awake()
         {
             LoadState = AudioDataLoadState.Loading;
